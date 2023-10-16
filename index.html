@@ -1,0 +1,368 @@
+<!doctype html><html><head>
+  <meta charset=utf8>
+  <title>Solucions DSU</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <style>
+    nav span{
+      display:inline-block;
+      padding-right:1em;
+      color:#666;
+      cursor:pointer;
+      font-weight:bold;
+      font-size:larger;
+    }
+    nav span:hover{
+      text-decoration:underline;
+    }
+    nav span[pagina_actual=true]{
+      color:royalblue;
+      text-decoration:underline;
+    }
+    table{
+      border-collapse:collapse;
+    }
+    th{
+      text-align:left;
+    }
+    div.retingut{
+      display:inline-block;
+      border:1px solid #ccc;
+      border-radius:5px;
+      padding:0px 2px;
+      font-size:smaller;
+    }
+    div.retingut[retingut=false]{
+      text-decoration:line-through;
+      background:red;
+    }
+    div.retingut[retingut=true]{
+      background:lightgreen;
+    }
+    div.selecciona_funcions{
+      position:sticky;
+      top:0;
+      background:white;
+      box-shadow:0 0 1px;
+      padding:10px;
+    }
+    button.btn_bonic{
+      border:1px solid #ccc;
+      background-color: DodgerBlue;
+      color: white;
+      cursor: pointer;
+      padding:0.618em 1em;
+      font-size:12px;
+    }
+    button.btn_bonic:hover{
+      background-color: RoyalBlue;
+    }
+  </style>
+</head><body>
+<h1>Solucions per a la mitigació de les Descàrregues de Sistemes Unitaris (DSUs)</h1>
+
+<div id=app>
+  <nav style="padding-bottom:1em">
+    <span v-for="obj,key in pagines"
+      @click="pagina_actual=key"
+      :pagina_actual="pagina_actual==key"
+    >
+      {{obj.text}}
+    </span>
+  </nav>
+
+  <div v-if="pagina_actual=='buscar_solucio'">
+    <div class=selecciona_funcions>
+      <div><b>Selecciona les funcions desitjades:</b></div>
+      <div>
+        <label><input type=checkbox v-model="filtres.retencio_aigua">    Retenció aigua</label><br>
+        <label><input type=checkbox v-model="filtres.retencio_gruixuts"> Retenció gruixuts i flotants</label><br>
+        <label><input type=checkbox v-model="filtres.retencio_TSS">      Retenció sòlids suspensió totals</label><br>
+        <label><input type=checkbox v-model="filtres.retencio_solubles"> Retenció solubles</label><br>
+      </div>
+    </div>
+
+    <!--resultats-->
+    <div
+      style="
+        background:#eee;
+        padding:10px;
+        box-shadow:0 0 1px;
+      "
+    >
+      <div>
+        <b>Resultats ({{get_solucions.length}} de {{solucions.length}} solucions):</b>
+        <span v-if="get_solucions.length==0" style="color:#666">
+          ~no hi ha solucions amb les funcions que has seleccionat
+        </span>
+        <span v-if="get_solucions.length==solucions.length" style="color:#666">
+          ~estàs veient totes les solucions
+        </span>
+      </div>
+
+      <div
+        style="
+          display:grid;
+          grid-template-columns:repeat(auto-fill, minmax(min(400px, 100%), 1fr));
+          grid-gap:8px 4px;
+          margin-top:10px;
+        "
+        v-if="get_solucions.length"
+      >
+        <div v-for="solucio in get_solucions">
+          <table border=1 style="background:white">
+            <tr>
+              <th
+                colspan=2
+                style="
+                  font-size:larger;
+                  background:dodgerblue;
+                  color:white;
+                  padding:0.2em;
+                "
+              >{{solucio.nom}}</th>
+            </tr>
+
+            <tr>
+              <td>Retenció:</td>
+              <td>
+                <div>
+                  <div class=retingut :retingut="solucio.retencio_aigua">   Aigua</div>
+                  <div class=retingut :retingut="solucio.retencio_gruixuts">Gruixuts i flotants</div>
+                  <div class=retingut :retingut="solucio.retencio_TSS">     Sòlids suspensió totals</div>
+                  <div class=retingut :retingut="solucio.retencio_solubles">Solubles</div>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Lloc instal·lació:
+              <td>{{solucio.lloc_instalacio}}
+            </tr>
+            <tr>
+              <td>Recomanació:
+              <td>{{solucio.recomanacio}}
+            </tr>
+            <tr>
+              <td>Neteja automàtica:
+              <td>{{solucio.neteja_automatica?"Sí":"No"}}
+            </tr>
+            <tr>
+              <td>Necessita energia:
+              <td>{{solucio.energia?"Sí":"No"}}
+            </tr>
+            <tr v-if="solucio.cobeneficis">
+              <td>Co-beneficis:
+              <td>{{solucio.cobeneficis?"Sí":"No"}}
+            </tr>
+
+            <tr>
+              <td>Més info:</td>
+              <td>
+                <div
+                  style="
+                    display:flex;
+                    align-items:center;
+                  "
+                >
+                  <button class=btn_bonic @click="descarrega_pdf(solucio)">&DownArrowBar; Full característiques (PDF)</button>
+                  <button class=btn_bonic @click="veure_en_3d(solucio)">&#9715; Veure en 3D</button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div v-if="pagina_actual=='mapa_experiencies'">
+    Mapa d'experiències aquí (en desenvolupament)
+  </div>
+
+  <div v-if="pagina_actual=='about'">
+    Textos sobre DSUs (en desenvolupament)
+  </div>
+
+  <div v-if="pagina_actual=='qui_som'">
+    Textos Qui Som (en desenvolupament)
+  </div>
+</div>
+
+<script>
+  let app=Vue.createApp({
+    data(){return {
+      pagina_actual:"buscar_solucio",
+      pagines:{
+        buscar_solucio:{text:"Buscar una solució"},
+        mapa_experiencies:{text:"Mapa d'experiències"},
+        about:{text:"Sobre les DSUs"},
+        qui_som:{text:"Qui som"},
+      },
+
+      filtres:{
+        retencio_aigua:false,
+        retencio_gruixuts:false,
+        retencio_TSS:false,
+        retencio_solubles:false,
+      },
+
+      solucions:[
+        {
+          nom               : "Tanc Anti-DSU",
+          retencio_aigua    : true,
+          retencio_gruixuts : false,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Abans sobreixidor",
+          recomanacio       : "Per augmentar rendiment hidràulic del sistema",
+          neteja_automatica : true,
+          energia           : true,
+          cobeneficis       : false,
+          link_pdf          : "pdf/tanc_anti-DSU.pdf",
+        },
+
+        {
+          nom               : "Tanc Anti-DSU + deflector",
+          retencio_aigua    : true,
+          retencio_gruixuts : true,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Abans sobreixidor",
+          recomanacio       : "Per augmentar rendiment hidràulic del sistema",
+          neteja_automatica : true,
+          energia           : true,
+          cobeneficis       : false,
+          link_pdf          : "pdf/tanc_anti-DSU-deflector.pdf",
+        },
+
+        {
+          nom               : "Tanc Anti-DSU + tamís",
+          retencio_aigua    : true,
+          retencio_gruixuts : true,
+          retencio_TSS      : true,
+          retencio_solubles : false,
+          lloc_instalacio   : "Estructura sobreixidor	",
+          recomanacio       : "Per augmentar rendiment hidràulic del sistema i per grans volums i estructures laterals",
+          neteja_automatica : true,
+          energia           : true,
+          cobeneficis       : false,
+          link_pdf          : "pdf/tanc_anti-DSU-tamis.pdf",
+        },
+
+        {
+          nom               : "Deflector",
+          retencio_aigua    : false,
+          retencio_gruixuts : true,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Estructura sobreixidor	",
+          recomanacio       : "Per estructures DSU laterals"      ,
+          neteja_automatica : false,
+          energia           : false,
+          cobeneficis       : false,
+          link_pdf          : "pdf/Deflector.pdf",
+        },
+
+        {
+          nom               : "Tamisos",
+          retencio_aigua    : false,
+          retencio_gruixuts : true,
+          retencio_TSS      : true,
+          retencio_solubles : false,
+          lloc_instalacio   : "Estructura sobreixidor	",
+          recomanacio       : "Per estructures DSU laterals"      ,
+          neteja_automatica : true,
+          energia           : true,
+          cobeneficis       : false,
+          link_pdf          : "pdf/Tamisos.pdf",
+        },
+
+        {
+          nom               : "Grapes",
+          retencio_aigua    : false,
+          retencio_gruixuts : true,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Sortida_sobreixidor",
+          recomanacio       : "Per grans volums i estructures DSU frontals",
+          neteja_automatica : false,
+          energia           : false,
+          cobeneficis       : false,
+          link_pdf          : "pdf/Grapes.pdf",
+        },
+
+        {
+          nom               : "Reixes",
+          retencio_aigua    : false,
+          retencio_gruixuts : true,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Sortida_sobreixidor",
+          recomanacio       : "Per grans volums i estructures DSU frontals",
+          neteja_automatica : false,
+          energia           : false,
+          cobeneficis       : false,
+          link_pdf          : "pdf/Reixes.pdf",
+        },
+
+        {
+          nom               : "Cistelles",
+          retencio_aigua    : false,
+          retencio_gruixuts : true,
+          retencio_TSS      : false,
+          retencio_solubles : false,
+          lloc_instalacio   : "Sortida_sobreixidor",
+          recomanacio       : "Per grans volums i estructures DSU frontals",
+          neteja_automatica : false,
+          energia           : false,
+          cobeneficis       : false,
+          link_pdf          : "pdf/Cistelles.pdf",
+        },
+
+        {
+          nom               : "Aiguamoll artificial",
+          retencio_aigua    : false,
+          retencio_gruixuts : false,
+          retencio_TSS      : false,
+          retencio_solubles : true,
+          lloc_instalacio   : "Sortida_sobreixidor",
+          recomanacio       : "Per protegir medi receptor sensible",
+          neteja_automatica : false,
+          energia           : false,
+          cobeneficis       : true,
+          link_pdf          : "pdf/aiguamoll_artificial.pdf",
+        },
+      ],
+    }},
+
+    computed:{
+      get_solucions(){
+        if(Object.values(this.filtres).every(v=>v==false)){
+          return this.solucions;
+        }
+        let keys = Object.keys(this.filtres);
+        return this.solucions.filter(sol=>{
+          return keys.every(key=>{
+            if(this.filtres[key]){
+              return sol[key];
+            }else{
+              return true;
+            }
+          });
+        });
+      },
+    },
+
+    methods:{
+      descarrega_pdf(solucio){
+        let link = solucio.link_pdf;
+        if(!link) return;
+        window.open(link);
+      },
+
+      veure_en_3d(solucio){
+        alert("En desenvolupament");
+      },
+    },
+  }).mount("#app");
+</script>

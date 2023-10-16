@@ -12,4 +12,5 @@ git push
 # -vv incrementa verbositat
 # -r  actua recursivament
 rsync -hPvr \
+  --exclude ".git/" \
   . root@icra.loading.net:/var/www/vhosts/icradev.cat/solucions-dsu.icradev.cat

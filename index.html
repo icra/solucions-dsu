@@ -3,6 +3,9 @@
   <title>Solucions DSU</title>
   <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
   <style>
+    body{
+      background:white;
+    }
     nav span{
       display:inline-block;
       padding-right:1em;
@@ -57,11 +60,28 @@
       background-color: RoyalBlue;
     }
   </style>
+  <style>
+    div.logos{
+      position:sticky;
+      bottom:0;
+    }
+    div.logos img{
+      border:1px solid transparent;
+    }
+    div.logos img:hover{
+      border-color:#ccc;
+      cursor:pointer;
+    }
+  </style>
 </head><body>
 <h1>Solucions per a la mitigació de les Descàrregues de Sistemes Unitaris (DSUs)</h1>
 
 <div id=app>
-  <nav style="padding-bottom:1em">
+  <nav
+    style="
+      padding-bottom:1em;
+    "
+  >
     <span v-for="obj,key in pagines"
       @click="pagina_actual=key"
       :pagina_actual="pagina_actual==key"
@@ -194,11 +214,31 @@
   </div>
 
   <div v-show="pagina_actual=='qui_som'">
-    Textos qui som (en desenvolupament)
-    <ul>
-      <li>Aquesta guia s’ha desenvolupat en un projecte fruit de la col·laboració entre l’ICRA, Aigües de Manresa, ABM i l’Agència Catalana de l’Aigua.
-      <li>ICRA. Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i tecnològic de la Universitat de Girona. Telèfon: 972183380. Email: lcorominas@icra.cat
-    </ul>
+    <p>
+      Aquesta guia s’ha desenvolupat en un projecte fruit de la col·laboració
+      entre l’ICRA, Aigües de Manresa, ABM i l’Agència Catalana de l’Aigua.
+    </p>
+
+    <!--logos-->
+    <div
+      class=logos
+      style="
+        display:flex;
+        align-items:center;
+        justify-content:space-around;
+      "
+    >
+      <img style="width:200px" src="img/icra.png" @click="obre_link('icra.cat')">
+      <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
+      <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
+      <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
+    </div>
+
+    <p>
+      ICRA. Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i
+      tecnològic de la Universitat de Girona. Telèfon: 972183380. Email:
+      lcorominas@icra.cat
+    </p>
   </div>
 </div>
 
@@ -376,6 +416,10 @@
 
       veure_en_3d(solucio){
         alert("En desenvolupament");
+      },
+
+      obre_link(link){
+        window.open('https://'+link);
       },
     },
   }).mount("#app");

@@ -70,7 +70,7 @@
     </span>
   </nav>
 
-  <div v-if="pagina_actual=='buscar_solucio'">
+  <div v-show="pagina_actual=='buscar_solucio'">
     <div class=selecciona_funcions>
       <div><b>Selecciona les funcions desitjades:</b></div>
       <div>
@@ -175,7 +175,7 @@
     </div>
   </div>
 
-  <div v-if="pagina_actual=='mapa_experiencies'">
+  <div v-show="pagina_actual=='mapa_experiencies'">
     Mapa d'experiències aquí (en desenvolupament)
     <div>
       <p>
@@ -184,16 +184,16 @@
         </a>
       </p>
       <div>
-        <embed src="pdf/material_taller.pdf" width="50%" height="800px">
+        <embed src="pdf/material_taller.pdf" width="100%" height="800px">
       </div>
     </div>
   </div>
 
-  <div v-if="pagina_actual=='about'">
+  <div v-show="pagina_actual=='about'">
     Textos sobre DSUs (en desenvolupament)
   </div>
 
-  <div v-if="pagina_actual=='qui_som'">
+  <div v-show="pagina_actual=='qui_som'">
     Textos qui som (en desenvolupament)
     <ul>
       <li>Aquesta guia s’ha desenvolupat en un projecte fruit de la col·laboració entre l’ICRA, Aigües de Manresa, ABM i l’Agència Catalana de l’Aigua.

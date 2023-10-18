@@ -87,7 +87,7 @@
   </style>
 </head><body>
 
-<h1>Solucions per a la mitigació de les Descàrregues de Sistemes Unitaris (DSUs)</h1>
+<h1>Solucions per a la mitigació de les DSUs</h1>
 
 <div id=app>
   <nav
@@ -213,25 +213,18 @@
       existeixen a Catalunya. Es tracta d’un mapa cooperatiu, que s’ha nodrit
       inicialment amb informació recollida per l’Institut Català de Recerca de
       l’Aigua, però que va creixent amb l’aportació de les diferents entitats
-      que vulguin visibilitzar les seves solucions. És molt senzill, envia un
-      correu a lcorominas@icra.cat amb la descripció de la solució, amb fotos,
-      i localització, i l’afegirem. Animeu-vos a afegir les vostres
+      que vulguin visibilitzar les seves solucions.
+    </p>
+    <p>
+      Envia un correu a lcorominas@icra.cat amb la descripció de la solució,
+      amb fotos, i localització, i l’afegirem. Animeu-vos a afegir les vostres
       experiències!
     </p>
 
-    <div
-      style="font-size:larger"
-    >
-      <p>
-        <a href="https://www.google.com/maps/d/viewer?mid=15s9C7Mz0_HVfrebZEBqw9mV_VSuZQSA&ll=41.55680692190075%2C2.4539485798214944&z=10">
-          &#9715;
-          Google Maps
-        </a>
-      </p>
-    </div>
+    <iframe src="https://www.google.com/maps/d/embed?mid=15s9C7Mz0_HVfrebZEBqw9mV_VSuZQSA&ehbc=2E312F" width="640" height="480"></iframe>
   </div>
 
-  <div v-show="pagina_actual=='about'">
+  <div v-show="pagina_actual=='inici'">
     <div
       style="
         background:url(img/imatge1.png);
@@ -268,11 +261,10 @@
       <div
         style="
           font-size:40px;
-          padding:2em;
-          padding-top:1em;
+          padding:1em;
         "
       >
-        Perquè calen solucions per minimitzar els efectes de les DSUs?
+        Per què calen solucions per minimitzar els efectes de les DSUs?
       </div>
 
       <p
@@ -311,14 +303,13 @@
       <p>
         Explora les diferents solucions que poden ajudar la teva comunitat a
         implementar solucions anti-DSU. Pots filtrar les solucions segons la
-        seva funció principal (retenció d’aigua, retenció de sòlids gruixuts
-        i flotants, retenció sòlids en suspensió o eliminació de contaminants
+        seva funció principal (retenció d’aigua, retenció de sòlids gruixuts i
+        flotants, retenció sòlids en suspensió o eliminació de contaminants
         dissolts). Per cada solució podràs descarregar un full informatiu amb
         les característiques principals i un resum de les condicions adients
         per la seva instal·lació. També s’inclou un llistat de proveïdors
-        potencials que es pot anar ampliant a partir del vostre retorn. Si
-        ets un proveïdor que et vols visibilitzar envia’ns un correu
-        electrònic.
+        potencials. Si ets un proveïdor que et vols visibilitzar envia’ns un
+        correu electrònic.
       </p>
     </div>
   </div>
@@ -364,7 +355,7 @@
         <img :src="autor.foto" style="width:200px;height:230px"><br>
         <b>{{autor.nom}}</b><br>
         <span>{{autor.afiliació}}</span><br>
-        <a :href="autor.correu">{{autor.correu}}</a><br>
+        <a :href="`mailto:`+autor.correu">{{autor.correu}}</a><br>
       </div>
     </div>
 
@@ -380,7 +371,6 @@
         style="
           display:flex;
           align-items:center;
-          justify-content:center;
           font-size:18px;
         "
       >
@@ -391,7 +381,7 @@
           ICRA<br>
           Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i tecnològic de la Universitat de Girona.<br>
           Telèfon: 972183380.<br>
-          Email: lcorominas@icra.cat<br>
+          Email: <a href="mailto:lcorominas@icra.cat">lcorominas@icra.cat</a><br>
         </div>
       </div>
 
@@ -399,14 +389,15 @@
       <div
         class=logos
         style="
+          margin-top:1em;
           display:flex;
           align-items:center;
-          justify-content:space-around;
+          justify-content:space-between;
         "
       >
+        <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
         <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
         <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
-        <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
       </div>
     </div>
   </div>
@@ -415,11 +406,11 @@
 <script>
   let app=Vue.createApp({
     data(){return {
-      pagina_actual:"buscar_solucio",
+      pagina_actual:"inici",
       pagines:{
-        buscar_solucio:{text:"Buscar una solució"},
+        inici:{text:"Inici"},
+        buscar_solucio:{text:"Trobar una solució"},
         mapa_experiencies:{text:"Mapa d'experiències"},
-        about:{text:"Sobre les DSUs"},
         qui_som:{text:"Qui som"},
       },
 

@@ -7,6 +7,9 @@
       background:white;
       font-family:math;
     }
+    a{
+      color:#00ace5;
+    }
     nav span{
       display:inline-block;
       padding-right:1em;
@@ -19,8 +22,7 @@
       text-decoration:underline;
     }
     nav span[pagina_actual=true]{
-      color:royalblue;
-      text-decoration:underline;
+      color:#00ace5;
     }
     table{
       border-collapse:collapse;
@@ -50,22 +52,31 @@
       padding:10px;
     }
     button.btn_bonic{
-      border:1px solid #ccc;
-      background-color: DodgerBlue;
-      color: white;
+      background:white;
+      border:1px solid #00ace5;
+      color:#00ace5;
       cursor: pointer;
-      padding:0.618em 1em;
       font-size:12px;
+      padding:0.618em 1em;
+      margin-right:1px;
     }
     button.btn_bonic:hover{
-      background-color: RoyalBlue;
+      background:linear-gradient(267.47deg,#bde4f7 -89.5%,#00ace5 96.26%);
+      color: white;
+    }
+    p{
+      font-size:18px;
+      line-height:1.5em;
+    }
+
+    .gradient_blau{
+      background:linear-gradient(267.47deg,#bde4f7 -89.5%,#00ace5 96.26%);
+      color:white;
     }
   </style>
+
+  <!--css logos-->
   <style>
-    div.logos{
-      position:sticky;
-      bottom:0;
-    }
     div.logos img{
       border:1px solid transparent;
     }
@@ -75,6 +86,7 @@
     }
   </style>
 </head><body>
+
 <h1>Solucions per a la mitigació de les Descàrregues de Sistemes Unitaris (DSUs)</h1>
 
 <div id=app>
@@ -105,7 +117,7 @@
     <!--resultats-->
     <div
       style="
-        background:#eee;
+        background:#efefef;
         padding:10px;
         box-shadow:0 0 1px;
       "
@@ -134,10 +146,9 @@
             <tr>
               <th
                 colspan=2
+                class=gradient_blau
                 style="
                   font-size:larger;
-                  background:dodgerblue;
-                  color:white;
                   padding:0.2em;
                 "
               >{{solucio.nom}}</th>
@@ -197,51 +208,207 @@
   </div>
 
   <div v-show="pagina_actual=='mapa_experiencies'">
-    Mapa d'experiències aquí (en desenvolupament)
-    <div>
+    <p>
+      Aquest mapa aglutina les experiències de solucions anti-DSU que
+      existeixen a Catalunya. Es tracta d’un mapa cooperatiu, que s’ha nodrit
+      inicialment amb informació recollida per l’Institut Català de Recerca de
+      l’Aigua, però que va creixent amb l’aportació de les diferents entitats
+      que vulguin visibilitzar les seves solucions. És molt senzill, envia un
+      correu a lcorominas@icra.cat amb la descripció de la solució, amb fotos,
+      i localització, i l’afegirem. Animeu-vos a afegir les vostres
+      experiències!
+    </p>
+
+    <div
+      style="font-size:larger"
+    >
       <p>
         <a href="https://www.google.com/maps/d/viewer?mid=15s9C7Mz0_HVfrebZEBqw9mV_VSuZQSA&ll=41.55680692190075%2C2.4539485798214944&z=10">
-          link google maps
+          &#9715;
+          Google Maps
         </a>
       </p>
-      <div>
-        <embed src="pdf/material_taller.pdf" width="100%" height="800px">
-      </div>
     </div>
   </div>
 
   <div v-show="pagina_actual=='about'">
-    Textos sobre DSUs (en desenvolupament)
+    <div
+      style="
+        background:url(img/imatge1.png);
+        background-size: cover;
+        padding:6.18em 10em;
+        color:white;
+      "
+    >
+      <div style="font-size:50px">
+        Què són les DSUs?
+      </div>
+      <p>
+        Les "descàrregues del sistema de sanejament en episodis de pluja (DSU)” son
+        els sobreeiximents d’aigües residuals urbanes no tractades procedents de
+        col·lectors d’un sistema de sanejament en episodis de pluja, el destí del
+        qual és el medi receptor. Com a resultat, les aigües residuals, que
+        normalment serien tractades i processades en instal·lacions de sanejament,
+        es descarreguen directament o indirectament en rius, corrents d'aigua o
+        altres cossos d'aigua superficials. Aquesta descàrrega pot contenir
+        contaminants i substàncies no tractades, i pot tenir un impacte negatiu en
+        la qualitat de l'aigua i l'ecosistema aquàtic dels cossos d'aigua
+        receptors. Per mitigar aquest impacte, es poden implementar mesures de
+        control i gestió de les pluges intenses i ampliar la capacitat dels
+        sistemes de sanejament.
+      </p>
+    </div>
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+      "
+    >
+      <div
+        style="
+          font-size:40px;
+          padding:2em;
+          padding-top:1em;
+        "
+      >
+        Perquè calen solucions per minimitzar els efectes de les DSUs?
+      </div>
+
+      <p
+        style="
+          padding:2em;
+          padding-top:1em;
+        "
+      >
+        Les DSU impacten negativament el medi aquàtic. Per tal de mitigar aquest
+        impacte, es poden implementar solucions que minimitzin el volum
+        descarregat, però també que redueixin la contaminació associada. Aquesta
+        contaminació pot ser en forma de residus sòlids gruixuts i flotants (tamany
+        de partícula superior a 10mm), en forma de sòlids en suspensió (tamany de
+        partícula entre 0,45 micres i 10mm, o bé en forma dissolta (tamany de
+        partícula inferior a 0,45 micres). El RD665/2023 indica l’obligatorietat de
+        dotar el sistema de sanejament dels elements pertinents per reduir la
+        contaminació de les DSU.
+      </p>
+    </div>
+
+    <div
+      class=gradient_blau
+      style="
+        padding:6.18em 10em;
+      "
+    >
+      <div
+        style="
+          font-size:40px;
+          text-align:center;
+          margin-bottom:20px;
+        "
+      >
+        TROBA LA TEVA SOLUCIÓ
+      </div>
+      <p>
+        Explora les diferents solucions que poden ajudar la teva comunitat a
+        implementar solucions anti-DSU. Pots filtrar les solucions segons la
+        seva funció principal (retenció d’aigua, retenció de sòlids gruixuts
+        i flotants, retenció sòlids en suspensió o eliminació de contaminants
+        dissolts). Per cada solució podràs descarregar un full informatiu amb
+        les característiques principals i un resum de les condicions adients
+        per la seva instal·lació. També s’inclou un llistat de proveïdors
+        potencials que es pot anar ampliant a partir del vostre retorn. Si
+        ets un proveïdor que et vols visibilitzar envia’ns un correu
+        electrònic.
+      </p>
+    </div>
   </div>
 
   <div v-show="pagina_actual=='qui_som'">
-    <!--logos-->
-    <div
-      class=logos
-      style="
-        display:flex;
-        align-items:center;
-        justify-content:space-around;
-      "
-    >
-      <img style="width:200px" src="img/icra.png" @click="obre_link('icra.cat')">
-      <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
-      <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
-      <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
-    </div>
     <p>
       Aquesta guia s’ha desenvolupat en un projecte fruit de la col·laboració
       entre l’ICRA, Aigües de Manresa, ABM i l’Agència Catalana de l’Aigua.
+      S’ha recopil·lat informació de la bibliografia, s’ha contactat amb
+      proveïdors i s’ha consultat experts en la matèria mitjançant un taller
+      organitzat a l’ICRA el 22 de novembre de 2022, i mitjançant entrevistes
+      individuals.
     </p>
-    <p>
-      <a href="https://github.com/icra/solucions-dsu">Codi Font (GitHub)</a>
-    </p>
-    <p>
-      ICRA. Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i
-      tecnològic de la Universitat de Girona. Telèfon: 972183380. Email:
-      lcorominas@icra.cat
-    </p>
+    <div
+      style="
+        display:flex;
+        align-items:center;
+        padding:1em 0;
+      "
+    >
+      <div>
+        <a href="pdf/material_taller.pdf">
+          &DownArrowBar;
+          Material Taller (PDF)
+        </a>
+      </div>
+      <div style="margin:0 10px">&mdash;</div>
+      <div>
+        <a href="https://github.com/icra/solucions-dsu">
+          Codi Font (GitHub)
+        </a>
+      </div>
+    </div>
 
+    <div
+      style="
+        display:grid;
+        grid-template-columns:repeat(auto-fill, minmax(min(200px, 100%), 1fr));
+        grid-gap:10px 1px;
+      "
+    >
+      <div v-for="autor in autors">
+        <img :src="autor.foto" style="width:200px;height:230px"><br>
+        <b>{{autor.nom}}</b><br>
+        <span>{{autor.afiliació}}</span><br>
+        <a :href="autor.correu">{{autor.correu}}</a><br>
+      </div>
+    </div>
+
+    <div
+      style="
+        margin-top:1em;
+        background:#efefef;
+        color:#666;
+        padding:3.09em 5em;
+      "
+    >
+      <div
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          font-size:18px;
+        "
+      >
+        <div>
+          <img style="width:200px" src="img/icra.png" @click="obre_link('icra.cat')">
+        </div>
+        <div>
+          ICRA<br>
+          Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i tecnològic de la Universitat de Girona.<br>
+          Telèfon: 972183380.<br>
+          Email: lcorominas@icra.cat<br>
+        </div>
+      </div>
+
+      <!--logos-->
+      <div
+        class=logos
+        style="
+          display:flex;
+          align-items:center;
+          justify-content:space-around;
+        "
+      >
+        <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
+        <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
+        <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
+      </div>
+    </div>
   </div>
 </div>
 
@@ -388,6 +555,39 @@
           energia           : false,
           cobeneficis       : true,
           link_pdf          : "pdf/aiguamoll_artificial.pdf",
+        },
+      ],
+
+      autors:[
+        {
+          nom:"Lluís Corominas",
+          foto:"img/lcorominas.jpg",
+          correu:"lcorominas@icra.cat",
+          afiliació:"ICRA",
+        },
+        {
+          nom:"Sílvia Busquets",
+          foto:"img/foto_perfil_generica.webp",
+          correu:"sbusquets@icra.cat",
+          afiliació:"ICRA",
+        },
+        {
+          nom:"Nicole Aguiar",
+          foto:"img/foto_perfil_generica.webp",
+          correu:"TODO",
+          afiliació:"TODO",
+        },
+        {
+          nom:"Lluís Bosch",
+          foto:"img/foto_perfil_generica.webp",
+          correu:"lbosch@icra.cat",
+          afiliació:"ICRA",
+        },
+        {
+          nom:"Narcís Pi",
+          foto:"img/foto_perfil_generica.webp",
+          correu:"TODO",
+          afiliació:"TODO",
         },
       ],
     }},

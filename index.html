@@ -5,7 +5,7 @@
   <style>
     body{
       background:white;
-      font-family:math;
+      font-family:sans-serif;
     }
     a{
       color:#00ace5;
@@ -39,10 +39,12 @@
     }
     div.retingut[retingut=false]{
       text-decoration:line-through;
-      background:red;
+      background:#efefef;
     }
     div.retingut[retingut=true]{
       background:lightgreen;
+      background:rgb(60,179,113);
+      color:white;
     }
     div.selecciona_funcions{
       position:sticky;
@@ -87,7 +89,7 @@
   </style>
 </head><body>
 
-<h1>Solucions per a la mitigació de les DSUs</h1>
+<H1>SOLUCIONS PER A LA MITIGACIÓ DE LES DSUS</H1>
 
 <div id=app>
   <nav
@@ -410,10 +412,10 @@
     data(){return {
       pagina_actual:"inici",
       pagines:{
-        inici:{text:"Inici"},
-        buscar_solucio:{text:"Trobar una solució"},
-        mapa_experiencies:{text:"Mapa d'experiències"},
-        qui_som:{text:"Qui som"},
+        inici:{text:"INICI"},
+        buscar_solucio:{text:"TROBAR UNA SOLUCIÓ"},
+        mapa_experiencies:{text:"MAPA D'EXPERIÈNCIES"},
+        qui_som:{text:"QUI SOM"},
       },
 
       filtres:{

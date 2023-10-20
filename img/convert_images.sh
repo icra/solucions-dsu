@@ -1,0 +1,12 @@
+convert -resize '200' dguell.webp               dguell.webp              
+convert -resize '200' foto_perfil_generica.webp foto_perfil_generica.webp
+convert -resize '200' imatge1.webp              imatge1.webp
+convert -resize '200' jcecchini.webp            jcecchini.webp
+convert -resize '200' jcomas.webp               jcomas.webp
+convert -resize '200' lbosch.webp               lbosch.webp
+convert -resize '200' lcorominas.webp           lcorominas.webp
+convert -resize '200' lisla.webp                lisla.webp
+convert -resize '200' mfelix.webp               mfelix.webp
+convert -resize '200' mjou.webp                 mjou.webp
+convert -resize '200' narnaud.webp              narnaud.webp
+convert -resize '200' sbusquets.webp            sbusquets.webp

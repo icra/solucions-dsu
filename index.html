@@ -1,5 +1,7 @@
 <!doctype html><html><head>
   <meta charset=utf8>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Solucions DSU</title>
   <script src="lib/vue.global.prod.js"></script>
   <style>
@@ -15,7 +17,6 @@
       padding-right:1em;
       color:#666;
       cursor:pointer;
-      font-weight:bold;
       font-size:larger;
     }
     nav span:hover{
@@ -87,11 +88,10 @@
     }
   </style>
 </head><body>
-<h1>SOLUCIONS PER A LA MITIGACIÓ DE LES DSUS</h1>
 
 <div id=app>
   <!--links top pàgina-->
-  <nav style="padding-bottom:1em">
+  <nav>
     <span v-for="obj,key in pagines"
       @click="pagina_actual=key"
       :pagina_actual="pagina_actual==key"
@@ -100,7 +100,8 @@
   </nav>
 
   <!--inici-->
-  <div v-show="!pagina_actual || pagina_actual=='inici'">
+  <div v-show="pagina_actual=='inici'">
+    <h1>SOLUCIONS PER A LA MITIGACIÓ DE LES DSUS</h1>
     <div
       style="
         background:url(img/imatge1.webp);
@@ -191,7 +192,7 @@
 
   <!--buscar solucio-->
   <div v-show="pagina_actual=='buscar_solucio'">
-    <div class=selecciona_funcions>
+    <div class=selecciona_funcions style="margin-top:1em">
       <div><b>Selecciona les funcions desitjades:</b></div>
       <div>
         <label><input type=checkbox v-model="filtres.retencio_aigua">    Retenció aigua</label><br>
@@ -402,7 +403,7 @@
 <script>
   let app=Vue.createApp({
     data(){return {
-      pagina_actual:false,//"qui_som",
+      pagina_actual:"inici",
       pagines:{
         inici:{text:"INICI"},
         buscar_solucio:{text:"TROBAR UNA SOLUCIÓ"},

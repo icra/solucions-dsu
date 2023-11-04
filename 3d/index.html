@@ -4,11 +4,31 @@
   <style>
     body{
       margin:0;
-      overflow-y:hidden;
+    }
+    #loading{
+      background:linear-gradient(to left ,#af0,lightgreen);
+      text-align:center;
+      width:0;
+      font-size:smaller;
+      font-family:monospace;
     }
 
   </style>
 </head><body>
+<div
+  style="
+    font-size:x-large;
+  "
+>
+  <a href="index.html?arxiu=diposit">Dipòsit tempestes</a> |
+  <a href="index.html?arxiu=discos">Rototamiz de discos</a> |
+  <a href="index.html?arxiu=tancs">Tancs modulars</a>
+</div>
+
+<div>
+  <div id=loading>carregant...</div>
+</div>
+
 <div id=app></div>
 
 <script type="importmap">
@@ -65,11 +85,13 @@
   //controls.minDistance = 0.1;
   //controls.maxDistance = 7;
   controls.addEventListener('change',function(){
+    /*
     console.log("camera.position",
       camera.position.x,
       camera.position.y,
       camera.position.z,
     );
+    */
     //render();
   });
   /**/
@@ -88,14 +110,37 @@
   let mtlLoader = new MTLLoader();
   let objLoader = new OBJLoader();
 
+  //urls arxius 3d
+  let arxius={
+    diposit:{
+      mtl:"vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.mtl",
+      obj:"vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.obj",
+    },
+    discos:{
+      mtl:"vistes_3d/Format obj/Rototamiz de discos - Vista 3D - {3D}.mtl",
+      obj:"vistes_3d/Format obj/Rototamiz de discos - Vista 3D - {3D}.obj",
+    },
+    tancs:{
+      mtl:"vistes_3d/Format obj/Tancs_Modulars - Vista 3D - {3D}.mtl",
+      obj:"vistes_3d/Format obj/Tancs_Modulars - Vista 3D - {3D}.obj",
+    },
+  };
+  let arxiu_seleccionat="diposit"; //per defecte
+
+  //selecciona arxiu des de la URL
+  let usp = new URLSearchParams(window.location.search);
+  let usp_arxiu = usp.get("arxiu");
+  if(usp_arxiu && arxius[usp_arxiu]){
+    arxiu_seleccionat = usp_arxiu;
+  }
+
   mtlLoader.load(
-    'vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.mtl',
-    function(materials){
-      materials.preload();
-      objLoader.setMaterials(materials);
+    arxius[arxiu_seleccionat].mtl, //url mtl
+    function(material){
+      material.preload();
+      objLoader.setMaterials(material);
       objLoader.load(
-        //url
-        'vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.obj',
+        arxius[arxiu_seleccionat].obj, //url obj
         //onload: called when loading is finished
         function(obj){
           objecte = obj;
@@ -106,17 +151,25 @@
           scene.add(obj);
           console.log({objecte_position:objecte.position});
           console.log({camera_position:camera.position});
+          //document.querySelector("#loading").style.display="none";
         },
         //onprogress: called when loading is in progress
         function(xhr){
           if(xhr.loaded && xhr.total){
             let loaded = 100*xhr.loaded/xhr.total;
-            console.log(`Loading... ${Math.floor(loaded)}%`);
+            let floor  = Math.floor(loaded);
+            console.log(`Loading... ${floor}%`);
+
+            //loading indicator
+            let el = document.querySelector("#loading");
+            el.innerHTML=`${floor}%`;
+            el.style.width=`${floor}%`;
           }
         },
         err=>console.log(err),
       );
-    });
+    },
+  );
 
   const axes = new THREE.AxesHelper(5);
   scene.add(axes);

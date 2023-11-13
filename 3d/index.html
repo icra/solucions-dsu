@@ -158,7 +158,9 @@
           if(xhr.loaded && xhr.total){
             let loaded = 100*xhr.loaded/xhr.total;
             let floor  = Math.floor(loaded);
-            console.log(`Loading... ${floor}%`);
+            if(floor%10==0){
+              console.log(`Carregant... ${floor}%`);
+            }
 
             //loading indicator
             let el = document.querySelector("#loading");

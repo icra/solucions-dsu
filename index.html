@@ -8,6 +8,7 @@
     body{
       background:white;
       font-family:sans-serif;
+      color:#606060;
     }
     a{
       color:#00ace5;
@@ -27,6 +28,9 @@
     }
     table{
       border-collapse:collapse;
+    }
+    td {
+      padding:3px;
     }
     th{
       text-align:left;
@@ -75,6 +79,18 @@
       background:linear-gradient(267.47deg,#bde4f7 -89.5%,#00ace5 96.26%);
       color:white;
     }
+
+    #mail_corominas a{
+      color:white;
+      text-decoration:none;
+    }
+    #mail_corominas a:hover{
+      text-decoration:underline;
+    }
+    table.solucio tr th,
+    table.solucio tr td {
+      border-bottom:1px solid #666;
+    }
   </style>
 
   <!--css logos-->
@@ -90,28 +106,49 @@
 </head><body>
 
 <div id=app>
-  <!--links top pàgina-->
-  <nav>
-    <span v-for="obj,key in pagines"
-      @click="pagina_actual=key"
-      :pagina_actual="pagina_actual==key"
-      v-html="obj.text"
-    ></span>
-  </nav>
+  <div
+    style="
+      display:flex;
+      flex-wrap:wrap;
+      align-items: center;
+      justify-content:space-between;
+      border-bottom:3px solid #00ace5;
+    "
+  >
+    <h1
+      style="color:#00ace5"
+    >SOLUCIONS PER A LA MITIGACIÓ DE LES DSUS</h1>
+
+    <!--links top pàgina-->
+    <nav>
+      <span v-for="obj,key in pagines"
+        @click="pagina_actual=key"
+        :pagina_actual="pagina_actual==key"
+        v-html="obj.text"
+      ></span>
+    </nav>
+  </div>
+
 
   <!--inici-->
   <div v-show="pagina_actual=='inici'">
-    <h1>SOLUCIONS PER A LA MITIGACIÓ DE LES DSUS</h1>
     <div
       style="
-        background:url(img/imatge1.webp);
+        background:url(img/imatge1.png);
         background-size: cover;
         padding:6.18em 10em;
         color:white;
       "
     >
-      <div style="font-size:50px">Què són les DSUs?</div>
-      <p>
+      <div style="font-size:35px">Què són les DSUs?</div>
+      <p
+        style="
+          background:rgba(45,45,45,0.4);
+          padding:10px 20px;
+          text-align: justify;
+          text-justify: inter-word;
+        "
+      >
         Les "descàrregues del sistema de sanejament en episodis de pluja
         (DSUs)" són els sobreeiximents d'aigües residuals urbanes no tractades
         procedents de col·lectors d’un sistema de sanejament en episodis de
@@ -191,7 +228,9 @@
   </div>
 
   <!--buscar solucio-->
-  <div v-show="pagina_actual=='buscar_solucio'">
+  <div v-show="pagina_actual=='buscar_solucio'"
+    style="margin-bottom:10px"
+  >
     <div class=selecciona_funcions style="margin-top:1em">
       <div><b>Selecciona les funcions desitjades:</b></div>
       <div>
@@ -230,14 +269,17 @@
         v-if="get_solucions.length"
       >
         <div v-for="solucio in get_solucions">
-          <table border=1 style="background:white">
-            <tr>
+          <table border=0 style="background:white" class=solucio>
+            <tr
+              style="border-bottom:1px solid #ccc"
+            >
               <th
                 colspan=2
-                class=gradient_blau
                 style="
                   font-size:larger;
                   padding:0.2em;
+                  color:#00ace5;
+                  background:#efefef;
                 "
               >{{solucio.nom}}</th>
             </tr>
@@ -294,22 +336,61 @@
 
   <!--mapa experiencies-->
   <div v-show="pagina_actual=='mapa_experiencies'">
-    <p>
-      Aquest mapa aglutina les experiències de solucions anti-DSU que
-      existeixen a Catalunya. Es tracta d’un mapa cooperatiu, que s’ha nodrit
-      inicialment amb informació recollida per l’Institut Català de Recerca de
-      l’Aigua, però que va creixent amb l’aportació de les diferents entitats
-      que vulguin visibilitzar les seves solucions.
-    </p>
-    <p>
-      Envia un correu a 
-      <a href="mailto:lcorominas@icra.cat">lcorominas@icra.cat</a>
-      amb la descripció de la solució, amb fotos, i localització, i l’afegirem.
-      Animeu-vos a afegir les vostres experiències!
-    </p>
+    <div
+      style="
+        background:url(img/mapa-header.png);
+        background-size: cover;
+        padding:6.18em 10em;
+        color:white;
+      "
+    >
+      <h2 style="text-align:center">
+        MAPA D'EXPERIÈNCIES
+      </h2>
+      <div
+        style="
+          width:50%;
+          margin:auto;
+          text-align:justify;
+          text-justify: inter-word;
+        "
+      >
+        <div>
+          Aquest mapa aglutina les experiències de solucions anti-DSU que
+          existeixen a Catalunya. Es tracta d’un mapa cooperatiu, que s’ha nodrit
+          inicialment amb informació recollida per l’Institut Català de Recerca de
+          l’Aigua, però que va creixent amb l’aportació de les diferents entitats
+          que vulguin visibilitzar les seves solucions.
+        </div>
+        <br><br>
+        <div>
+          Envia un correu a
+          <span
+            style="background:#333333"
+            id=mail_corominas
+          >
+            <a href="mailto:lcorominas@icra.cat">lcorominas@icra.cat</a>
+          </span>
+          amb la descripció de la solució, amb fotos, i localització, i l’afegirem.
+          Animeu-vos a afegir les vostres experiències!
+        </div>
+      </div>
+    </div>
+
+    <div
+      style="text-align:center;"
+
+    >
+      Clica sobre la icona &#9974; del mapa de baix per obrir el mapa en una altra finestra
+    </div>
+
     <iframe
-    src="https://www.google.com/maps/d/embed?mid=15s9C7Mz0_HVfrebZEBqw9mV_VSuZQSA&ehbc=2E312F"
-    width="640" height="480"></iframe>
+      style="
+        display:block;
+        margin:1em auto;
+      "
+      src="https://www.google.com/maps/d/embed?mid=15s9C7Mz0_HVfrebZEBqw9mV_VSuZQSA&ehbc=2E312F"
+      width="640" height="480"></iframe>
   </div>
 
   <!--qui_som-->
@@ -355,47 +436,49 @@
         </div>
       </div>
     </div>
+
+  </div>
+
+  <!--logos sempre visible-->
+  <div
+    class=logos
+    style="
+      background:#efefef;
+      color:#666;
+      padding:3.09em 5em;
+    "
+  >
     <div
-      class=logos
       style="
-        margin-top:1em;
-        background:#efefef;
-        color:#666;
-        padding:3.09em 5em;
+        display:flex;
+        align-items:center;
+        font-size:18px;
       "
     >
-      <div
-        style="
-          display:flex;
-          align-items:center;
-          font-size:18px;
-        "
-      >
-        <div>
-          <img style="width:200px" src="img/icra.png" @click="obre_link('icra.cat')">
-        </div>
-        <div>
-          ICRA<br>
-          Institut Català de Recerca de l'Aigua<br>
-          Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i tecnològic de la Universitat de Girona.<br>
-          Telèfon: 972183380.<br>
-          Email: <a href="mailto:lcorominas@icra.cat">lcorominas@icra.cat</a><br>
-        </div>
+      <div>
+        <img style="width:200px" src="img/icra.png" @click="obre_link('icra.cat')">
       </div>
+      <div>
+        ICRA<br>
+        Institut Català de Recerca de l'Aigua<br>
+        Carrer Emili Grahit, 101, Edifici H2O, Parc Científic i tecnològic de la Universitat de Girona.<br>
+        Telèfon: 972183380.<br>
+        Email: <a href="mailto:lcorominas@icra.cat">lcorominas@icra.cat</a><br>
+      </div>
+    </div>
 
-      <!--logos-->
-      <div
-        style="
-          margin-top:1em;
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-        "
-      >
-        <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
-        <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
-        <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
-      </div>
+    <!--logos-->
+    <div
+      style="
+        margin-top:1em;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      "
+    >
+      <img style="width:200px" src="img/aca.png"  @click="obre_link('aca.gencat.cat')">
+      <img style="width:200px" src="img/adm.png"  @click="obre_link('www.aiguesmanresa.cat')">
+      <img style="width:200px" src="img/abm.png"  @click="obre_link('www.abm.cat')">
     </div>
   </div>
 </div>
@@ -403,12 +486,12 @@
 <script>
   let app=Vue.createApp({
     data(){return {
-      pagina_actual:"inici",
+      pagina_actual:"buscar_solucio",
       pagines:{
-        inici:{text:"INICI"},
-        buscar_solucio:{text:"TROBAR UNA SOLUCIÓ"},
-        mapa_experiencies:{text:"MAPA D'EXPERIÈNCIES"},
-        qui_som:{text:"QUI SOM"},
+        inici:{text:"Inici"},
+        buscar_solucio:{text:"Trobar una solució"},
+        mapa_experiencies:{text:"Mapa d'experiències"},
+        qui_som:{text:"Qui som"},
       },
 
       filtres:{

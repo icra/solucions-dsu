@@ -1,0 +1,4 @@
+
+# Exemple per insertar arxius GLB a la llibreria three.js
+# minut 3:42
+https://youtu.be/Q71l9WaY2yM?si=yu2yyQ_xpIey1xRe&t=235

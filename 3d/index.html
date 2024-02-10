@@ -61,7 +61,7 @@
   scene.add(new THREE.AmbientLight(0xffffff));
 
   let light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(1, 1, 6);
+  light.position.set(1,1,6);
   scene.add(light);
   /**/
 
@@ -125,9 +125,11 @@
       obj:"vistes_3d/Format obj/Tancs_Modulars - Vista 3D - {3D}.obj",
     },
   };
-  let arxiu_seleccionat="diposit"; //per defecte
 
-  //selecciona arxiu des de la URL
+  //arxiu carregat per defecte
+  let arxiu_seleccionat="diposit";
+
+  //GET "arxiu": per poder seleccionar 3d a la URL
   let usp = new URLSearchParams(window.location.search);
   let usp_arxiu = usp.get("arxiu");
   if(usp_arxiu && arxius[usp_arxiu]){
@@ -138,6 +140,7 @@
     arxius[arxiu_seleccionat].mtl, //url mtl
     function(material){
       material.preload();
+
       objLoader.setMaterials(material);
       objLoader.load(
         arxius[arxiu_seleccionat].obj, //url obj

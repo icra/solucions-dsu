@@ -17,9 +17,10 @@
 
 <div>
   TEST GLB:
-  <a href="index.html?format=3ds">diposit_3DS.glb</a> |
-  <a href="index.html?format=obj">diposit_OBJ.glb</a> |
-  <a href="index.html?format=stl">diposit_STL.glb</a> |
+  <a href="index.html?arxiu=diposit_3ds_glb">diposit_3DS.glb</a> |
+  <a href="index.html?arxiu=diposit_obj_glb">diposit_OBJ.glb</a> |
+  <a href="index.html?arxiu=diposit_stl_glb">diposit_STL.glb</a> |
+  <a href="index.html?arxiu=tancs_glb">tancs.glb</a> |
 </div>
 
 <div>
@@ -39,6 +40,7 @@
 <script>
   //globals
   let objecte; //objecte carregat
+  let light; //llum
 </script>
 
 <script type=module>
@@ -55,9 +57,19 @@
   const scene = new THREE.Scene();
   scene.add(new THREE.AmbientLight(0xffffff));
 
-  let light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(1, 1, 6);
-  scene.add(light);
+  function create_light(x,y,z){
+    let light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(x,y,z);
+    scene.add(light);
+  }
+  create_light(50,50,50);
+  create_light(50,50,-50);
+  create_light(50,-50,50);
+  create_light(50,-50,-50);
+  create_light(-50,50,50);
+  create_light(-50,50,-50);
+  create_light(-50,-50,50);
+  create_light(-50,-50,-50);
   /**/
 
   //crea camera
@@ -105,19 +117,18 @@
 
   //urls arxius 3d
   let arxius={
-    diposit:{
-      "3ds":"diposit_3ds.glb",
-      obj:"diposit_obj.glb",
-      stl:"diposit_stl.glb",
-    },
+    "diposit_3ds_glb":"diposit_3ds.glb",
+    "diposit_obj_glb":"diposit_obj.glb",
+    "diposit_stl_glb":"diposit_stl.glb",
+    "tancs_glb"      :"tancs.glb",
   };
-  let arxiu_seleccionat = arxius.diposit["3ds"]; //per defecte
+  let arxiu_seleccionat = arxius["diposit_3ds_glb"]; //per defecte
 
   //selecciona arxiu des de la URL
   let usp = new URLSearchParams(window.location.search);
-  let usp_format = usp.get("format");
-  if(usp_format && arxius.diposit[usp_format]){
-    arxiu_seleccionat = arxius.diposit[usp_format];
+  let usp_arxiu = usp.get("arxiu");
+  if(usp_arxiu && arxius[usp_arxiu]){
+    arxiu_seleccionat = arxius[usp_arxiu];
     console.log(`Carregant "${arxiu_seleccionat}"...`);
   }
 
@@ -127,9 +138,11 @@
     function(obj){
       objecte = obj.scene;
 
-      objecte.position.z = -12;
-      objecte.position.y = 557;
-      objecte.position.x = 4;
+      if(arxiu_seleccionat!="tancs.glb"){
+        objecte.position.z = -12;
+        objecte.position.y = 557;
+        objecte.position.x = 4;
+      }
 
       scene.add(objecte);
 

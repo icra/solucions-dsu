@@ -16,11 +16,14 @@
 </head><body>
 
 <div>
-  TEST GLB:
-  <a href="index.html?arxiu=diposit_3ds_glb">diposit_3DS.glb</a> |
-  <a href="index.html?arxiu=diposit_obj_glb">diposit_OBJ.glb</a> |
-  <a href="index.html?arxiu=diposit_stl_glb">diposit_STL.glb</a> |
-  <a href="index.html?arxiu=tancs_glb">tancs.glb</a> |
+  Arxius GLB:
+  <a href="index.html?arxiu=gabions"           >gabions.glb</a> |
+  <a href="index.html?arxiu=grapes"            >grapes.glb</a> |
+  <a href="index.html?arxiu=malla_captacio"    >malla_captacio.glb</a> |
+  <a href="index.html?arxiu=reixa_horitzontal" >reixa_horitzontal.glb</a> |
+  <a href="index.html?arxiu=rototamis"         >rototamis.glb</a> |
+  <a href="index.html?arxiu=tancs_modulars"    >tancs_modulars.glb</a> |
+  <a href="index.html?arxiu=tancs"             >tancs.glb</a> |
 </div>
 
 <div>
@@ -62,13 +65,13 @@
     light.position.set(x,y,z);
     scene.add(light);
   }
-  create_light(50,50,50);
-  create_light(50,50,-50);
-  create_light(50,-50,50);
-  create_light(50,-50,-50);
-  create_light(-50,50,50);
-  create_light(-50,50,-50);
-  create_light(-50,-50,50);
+  create_light( 50, 50, 50);
+  create_light( 50, 50,-50);
+  create_light( 50,-50, 50);
+  create_light( 50,-50,-50);
+  create_light(-50, 50, 50);
+  create_light(-50, 50,-50);
+  create_light(-50,-50, 50);
   create_light(-50,-50,-50);
   /**/
 
@@ -115,14 +118,17 @@
   /*afegeix un fitxer 3d*/
   let glbLoader = new GLTFLoader();
 
-  //urls arxius 3d
+  //paths arxius 3d
   let arxius={
-    "diposit_3ds_glb":"diposit_3ds.glb",
-    "diposit_obj_glb":"diposit_obj.glb",
-    "diposit_stl_glb":"diposit_stl.glb",
-    "tancs_glb"      :"tancs.glb",
+    "gabions"           : "glb/gabions.glb",
+    "grapes"            : "glb/grapes.glb",
+    "malla_captacio"    : "glb/malla_captacio.glb",
+    "reixa_horitzontal" : "glb/reixa_horitzontal.glb",
+    "rototamis"         : "glb/rototamis.glb",
+    "tancs_modulars"    : "glb/tancs_modulars.glb",
+    "tancs"             : "glb/tancs.glb",
   };
-  let arxiu_seleccionat = arxius["diposit_3ds_glb"]; //per defecte
+  let arxiu_seleccionat = arxius["tancs"]; //per defecte
 
   //selecciona arxiu des de la URL
   let usp = new URLSearchParams(window.location.search);
@@ -138,7 +144,7 @@
     function(obj){
       objecte = obj.scene;
 
-      if(arxiu_seleccionat!="tancs.glb"){
+      if(false){
         objecte.position.z = -12;
         objecte.position.y = 557;
         objecte.position.x = 4;

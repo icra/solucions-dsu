@@ -12,23 +12,23 @@
       font-size:smaller;
       font-family:monospace;
     }
-
   </style>
 </head><body>
-<div
-  style="
-    font-size:x-large;
-  "
->
-  <a href="index.html?arxiu=diposit">Dipòsit tempestes</a> |
-  <a href="index.html?arxiu=discos">Rototamiz de discos</a> |
-  <a href="index.html?arxiu=tancs">Tancs modulars</a>
+
+<div>
+  Arxius GLB:
+  <a href="index.html?arxiu=gabions"           >gabions.glb</a> |
+  <a href="index.html?arxiu=grapes"            >grapes.glb</a> |
+  <a href="index.html?arxiu=malla_captacio"    >malla_captacio.glb</a> |
+  <a href="index.html?arxiu=reixa_horitzontal" >reixa_horitzontal.glb</a> |
+  <a href="index.html?arxiu=rototamis"         >rototamis.glb</a> |
+  <a href="index.html?arxiu=tancs_modulars"    >tancs_modulars.glb</a> |
+  <a href="index.html?arxiu=tancs"             >tancs.glb</a> |
 </div>
 
 <div>
   <div id=loading>carregant...</div>
 </div>
-
 <div id=app></div>
 
 <script type="importmap">
@@ -43,12 +43,12 @@
 <script>
   //globals
   let objecte; //objecte carregat
+  let light; //llum
 </script>
 
 <script type=module>
   import * as THREE      from 'three';
-  import {OBJLoader}     from 'three/addons/loaders/OBJLoader.js';
-  import {MTLLoader}     from 'three/addons/loaders/MTLLoader.js';
+  import {GLTFLoader}    from 'three/addons/loaders/GLTFLoader.js';
   import {OrbitControls} from 'three/addons/controls/OrbitControls.js';
 
   //tamany canvas
@@ -60,9 +60,19 @@
   const scene = new THREE.Scene();
   scene.add(new THREE.AmbientLight(0xffffff));
 
-  let light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(1,1,6);
-  scene.add(light);
+  function create_light(x,y,z){
+    let light = new THREE.DirectionalLight(0xffffff);
+    light.position.set(x,y,z);
+    scene.add(light);
+  }
+  create_light( 50, 50, 50);
+  create_light( 50, 50,-50);
+  create_light( 50,-50, 50);
+  create_light( 50,-50,-50);
+  create_light(-50, 50, 50);
+  create_light(-50, 50,-50);
+  create_light(-50,-50, 50);
+  create_light(-50,-50,-50);
   /**/
 
   //crea camera
@@ -106,74 +116,62 @@
   */
 
   /*afegeix un fitxer 3d*/
-  /* */
-  let mtlLoader = new MTLLoader();
-  let objLoader = new OBJLoader();
+  let glbLoader = new GLTFLoader();
 
-  //urls arxius 3d
+  //paths arxius 3d
   let arxius={
-    diposit:{
-      mtl:"vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.mtl",
-      obj:"vistes_3d/Format obj/Diposit tempestes - Vista 3D - {3D}.obj",
-    },
-    discos:{
-      mtl:"vistes_3d/Format obj/Rototamiz de discos - Vista 3D - {3D}.mtl",
-      obj:"vistes_3d/Format obj/Rototamiz de discos - Vista 3D - {3D}.obj",
-    },
-    tancs:{
-      mtl:"vistes_3d/Format obj/Tancs_Modulars - Vista 3D - {3D}.mtl",
-      obj:"vistes_3d/Format obj/Tancs_Modulars - Vista 3D - {3D}.obj",
-    },
+    "gabions"           : "glb/gabions.glb",
+    "grapes"            : "glb/grapes.glb",
+    "malla_captacio"    : "glb/malla_captacio.glb",
+    "reixa_horitzontal" : "glb/reixa_horitzontal.glb",
+    "rototamis"         : "glb/rototamis.glb",
+    "tancs_modulars"    : "glb/tancs_modulars.glb",
+    "tancs"             : "glb/tancs.glb",
   };
+  let arxiu_seleccionat = arxius["tancs"]; //per defecte
 
-  //arxiu carregat per defecte
-  let arxiu_seleccionat="diposit";
-
-  //GET "arxiu": per poder seleccionar 3d a la URL
+  //selecciona arxiu des de la URL
   let usp = new URLSearchParams(window.location.search);
   let usp_arxiu = usp.get("arxiu");
   if(usp_arxiu && arxius[usp_arxiu]){
-    arxiu_seleccionat = usp_arxiu;
+    arxiu_seleccionat = arxius[usp_arxiu];
+    console.log(`Carregant "${arxiu_seleccionat}"...`);
   }
 
-  mtlLoader.load(
-    arxius[arxiu_seleccionat].mtl, //url mtl
-    function(material){
-      material.preload();
+  glbLoader.load(
+    arxiu_seleccionat, //url arxiu
+    //onload: called when loading is finished
+    function(obj){
+      objecte = obj.scene;
 
-      objLoader.setMaterials(material);
-      objLoader.load(
-        arxius[arxiu_seleccionat].obj, //url obj
-        //onload: called when loading is finished
-        function(obj){
-          objecte = obj;
-          //obj.scale.setScalar(0.01);
-          obj.position.z=550;
-          obj.position.y=20;
-          obj.position.x=-5;
-          scene.add(obj);
-          console.log({objecte_position:objecte.position});
-          console.log({camera_position:camera.position});
-          //document.querySelector("#loading").style.display="none";
-        },
-        //onprogress: called when loading is in progress
-        function(xhr){
-          if(xhr.loaded && xhr.total){
-            let loaded = 100*xhr.loaded/xhr.total;
-            let floor  = Math.floor(loaded);
-            if(floor%10==0){
-              console.log(`Carregant... ${floor}%`);
-            }
+      if(false){
+        objecte.position.z = -12;
+        objecte.position.y = 557;
+        objecte.position.x = 4;
+      }
 
-            //loading indicator
-            let el = document.querySelector("#loading");
-            el.innerHTML=`${floor}%`;
-            el.style.width=`${floor}%`;
-          }
-        },
-        err=>console.log(err),
-      );
+      scene.add(objecte);
+
+      console.log({objecte_position:objecte.position});
+      console.log({camera_position:camera.position});
+      //document.querySelector("#loading").style.display="none";
     },
+    //onprogress: called when loading is in progress
+    function(xhr){
+      if(xhr.loaded && xhr.total){
+        let loaded = 100*xhr.loaded/xhr.total;
+        let floor  = Math.floor(loaded);
+        if(floor%10==0){
+          console.log(`Carregant... ${floor}%`);
+        }
+
+        //loading indicator
+        let el = document.querySelector("#loading");
+        el.innerHTML=`${floor}%`;
+        el.style.width=`${floor}%`;
+      }
+    },
+    err=>console.log(err),
   );
 
   const axes = new THREE.AxesHelper(5);

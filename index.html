@@ -514,6 +514,7 @@
           energia           : true,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Tanc_Anti-DSU.pdf",
+          nom_3d            : "tancs",
         },
         {
           nom               : "Tanc Anti-DSU + deflector",
@@ -527,6 +528,7 @@
           energia           : true,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Tanc_Anti-DSU-deflector.pdf",
+          nom_3d            : "tancs",
         },
         {
           nom               : "Tanc Anti-DSU + tamís",
@@ -540,6 +542,7 @@
           energia           : true,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Tanc_Anti-DSU-tamis.pdf",
+          nom_3d            : "tancs",
         },
         {
           nom               : "Deflector",
@@ -553,6 +556,7 @@
           energia           : false,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Deflector.pdf",
+          nom_3d            : false, //TODO falta rebre fitxer
         },
         {
           nom               : "Tamisos",
@@ -566,6 +570,7 @@
           energia           : true,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Tamisos_i_reixes.pdf",
+          nom_3d            : "rototamis",
         },
         {
           nom               : "Grapes",
@@ -579,6 +584,7 @@
           energia           : false,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Grapes.pdf",
+          nom_3d            : "grapes",
         },
         {
           nom               : "Reixes",
@@ -592,6 +598,7 @@
           energia           : false,
           cobeneficis       : false,
           link_pdf          : "pdf/new/Reixes_o_barres_verticals.pdf",
+          nom_3d            : "reixa_horitzontal",
         },
         {
           nom               : "Cistelles",
@@ -605,6 +612,7 @@
           energia           : false,
           cobeneficis       : false,
           link_pdf          : "pdf/new/cistelles.pdf",
+          nom_3d            : "malla_captacio",
         },
         {
           nom               : "Aiguamoll artificial",
@@ -618,6 +626,7 @@
           energia           : false,
           cobeneficis       : true,
           link_pdf          : "pdf/new/Aiguamolls.pdf",
+          nom_3d            : false, //TODO falta rebre fitxer
         },
       ],
 
@@ -749,8 +758,11 @@
       },
 
       veure_en_3d(solucio){
-        alert("En desenvolupament");
-        window.open(`3d/?arxiu=${solucio.nom}`);
+        let nom_3d = solucio.nom_3d;
+        if(!nom_3d){
+          alert("Vista 3d en desenvolupament");
+        }
+        window.open(`3d/?arxiu=${solucio.nom_3d}`);
       },
 
       obre_link(link){
